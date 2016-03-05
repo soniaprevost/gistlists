@@ -10,6 +10,21 @@ class GistsController < ApplicationController
     else
       @gists = Gist.all
     end
+    @gist = Gist.new
+  end
+
+  def create
+    @gist = current_user.gists.build(
+      author: params[:gist][:author],
+      link: params[:gist][:link],
+      content: params[:gist][:content],
+      )
+
+    if @gist.save
+      redirect_to account_path
+    else
+      raise
+    end
   end
   
 end

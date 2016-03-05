@@ -7,7 +7,7 @@
     .col-xs-12
       #search-form.text-center
         .form-inline
-          = simple_form_for :search, url: gists_path , method: :get do |f|
+          = simple_form_for :search, url: gists_path, method: :get do |f|
             .form-group
               - input_value = params[:search] ? params[:search][:query] : nil
               = f.input :query, 
@@ -29,3 +29,15 @@
             p.text-center
               = link_to 'View gist in github', gistcontent.css('a').attribute('href').value, target: '_blank'
             p= raw gistcontent.css('div.file-box div')
+          
+          = simple_form_for @gist, url: gists_path, method: :post do |f|
+            = f.input :author,
+              as: :hidden,
+              input_html: { value: gist.css('div.byline span.creator a').attribute('href').value.gsub!('/', '').upcase }
+            = f.input :link,
+              as: :hidden,
+              input_html: { value: gistcontent.css('a').attribute('href').value }
+            = f.input :content,
+              as: :hidden,
+              input_html: { value: gistcontent.css('div.file-box div') }
+            = f.submit 'Save'

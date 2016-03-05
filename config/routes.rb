@@ -3,8 +3,11 @@ Rails.application.routes.draw do
 
   devise_for :users
   
-  resources :gists, only: [:index]
+  resources :gists, only: [:index, :create]
   
+  resource :account, only: [:show] do
+    resources :gists, only: [:destroy], module: :accounts
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

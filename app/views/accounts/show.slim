@@ -1,0 +1,11 @@
+.container
+  .row
+    .col-xs-12
+      - @gists.each do |gist|
+        .margin-20
+          h3.text-center
+            = gist.author
+          p.text-center
+            = link_to 'View in Github', gist.link
+          p= raw gist.content
+        = link_to 'Delete', account_gist_path(gist), method: :delete, confirm: 'Are you sure  ?'
