@@ -9,14 +9,18 @@
         p= raw gist_content(gist)
 
   .text-center
-    = simple_form_for @gist, url: gists_path, method: :post do |f|
-      = f.input :author,
-        as: :hidden,
-        input_html: { value: gist_author(gist) }
-      = f.input :link,
-        as: :hidden,
-        input_html: { value: gist_link(gist) }
-      = f.input :content,
-        as: :hidden,
-        input_html: { value: gist_content(gist) }
-      = f.submit 'Save in my gists', class: 'btn btn-success'
+
+    - if user_signed_in?
+      = simple_form_for @gist, url: gists_path, method: :post do |f|
+        = f.input :author,
+          as: :hidden,
+          input_html: { value: gist_author(gist) }
+        = f.input :link,
+          as: :hidden,
+          input_html: { value: gist_link(gist) }
+        = f.input :content,
+          as: :hidden,
+          input_html: { value: gist_content(gist) }
+        = f.submit 'Save in my gists', class: 'btn btn-success'
+    - else
+      = button_to 'Save in my gists', new_user_session_path, class: 'btn btn-success'
