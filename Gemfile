@@ -3,6 +3,7 @@ ruby "2.3.0"
 
 gem 'bootstrap-sass'
 gem 'coffee-rails', '~> 4.1.0'
+gem 'devise'
 gem 'figaro'
 gem 'font-awesome-sass'
 gem 'jbuilder', '~> 2.0'
@@ -29,6 +30,6 @@ group :development do
 end
 
 group :production do
-  gem 'rails_12factor'
   gem 'puma'
+  gem 'rails_12factor'
 end
