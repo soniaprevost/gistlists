@@ -1,0 +1,31 @@
+.container
+  .row
+    .col-xs-12.text-center
+      h1= 'Gist Search'
+
+  .row
+    .col-xs-12
+      #search-form.text-center
+        .form-inline
+          = simple_form_for :search, url: gists_path , method: :get do |f|
+            .form-group
+              - input_value = params[:search] ? params[:search][:query] : nil
+              = f.input :query, 
+                label: false,
+                placeholder: 'Type anything',
+                input_html: { value: input_value },
+                autofocus: true,
+                required: false
+              = f.submit 'Run Search', class: 'btn btn-primary'
+
+  .row
+    .col-xs-12
+      - if params[:search]
+        - @gists.each do |gist|
+          .margin-20
+            - gistcontent = gist.css('div.js-gist-file-update-container')
+            h3.text-center
+              = gist.css('div.byline span.creator a').attribute('href').value.gsub!('/', '').upcase
+            p.text-center
+              = link_to 'View gist in github', gistcontent.css('a').attribute('href').value, target: '_blank'
+            p= raw gistcontent.css('div.file-box div')
