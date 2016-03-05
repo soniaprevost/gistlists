@@ -1,0 +1,11 @@
+.form-inline
+  = simple_form_for :search, url: gists_path, method: :get do |f|
+    .form-group
+      - input_value = params[:search] ? params[:search][:query] : nil
+      = f.input :query, 
+        label: false,
+        placeholder: 'Ruby, postgres, python',
+        input_html: { value: input_value },
+        autofocus: true,
+        required: false
+      = f.submit 'Run Search', class: 'btn btn-primary'

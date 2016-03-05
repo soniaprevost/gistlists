@@ -1,0 +1,22 @@
+- @gists.each do |gist|
+  .margin-20
+    h3.text-center
+      = gist_author(gist)
+    p.text-center
+      = link_to 'View gist in github', gist_link(gist), target: '_blank'
+    .row
+      .col-sm-6.col-sm-offset-3
+        p= raw gist_content(gist)
+
+  .text-center
+    = simple_form_for @gist, url: gists_path, method: :post do |f|
+      = f.input :author,
+        as: :hidden,
+        input_html: { value: gist_author(gist) }
+      = f.input :link,
+        as: :hidden,
+        input_html: { value: gist_link(gist) }
+      = f.input :content,
+        as: :hidden,
+        input_html: { value: gist_content(gist) }
+      = f.submit 'Save in my gists', class: 'btn btn-success'
