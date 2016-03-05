@@ -10,6 +10,7 @@ class GistsController < ApplicationController
     else
       @gists = Gist.all
     end
+    
     @gist = Gist.new
   end
 
@@ -21,9 +22,10 @@ class GistsController < ApplicationController
       )
 
     if @gist.save
+      flash[:notice] = 'Saved in your gists\' list'
       redirect_to account_path
     else
-      raise
+      render 'new'
     end
   end
   
