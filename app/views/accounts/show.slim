@@ -5,19 +5,24 @@
 
   .row
     .col-xs-12
-      - @gists.each do |gist|
-        .margin-20
-          h3.text-center
-            = gist_author(gist)
-          p.text-center
-            = link_to 'View in Github', gist_link(gist), target: '_blank'
-          .row
-            .col-sm-6.col-sm-offset-3
-              p= raw gist_content(gist)
+      - if @gists.blank?
+        .text-center.margin-20
+          p No Gists yet :(
+          = link_to 'Add some? :)', gists_path
+      - else
+        - @gists.each do |gist|
+          .margin-20
+            h3.text-center
+              = gist_author(gist)
+            p.text-center
+              = link_to 'View in Github', gist_link(gist), target: '_blank'
+            .row
+              .col-sm-6.col-sm-offset-3
+                p= raw gist_content(gist)
 
-        .text-center
-          = link_to 'Delete',
-            account_gist_path(gist),
-            method: :delete,
-            data: { confirm: 'Are you sure ?' },
-            class: 'btn btn-danger'
+          .text-center
+            = link_to 'Delete',
+              account_gist_path(gist),
+              method: :delete,
+              data: { confirm: 'Are you sure ?' },
+              class: 'btn btn-danger'

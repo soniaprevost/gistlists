@@ -25,7 +25,8 @@ class GistsController < ApplicationController
       flash[:notice] = 'Saved in your gists\' list'
       redirect_to account_path
     else
-      render 'new'
+      flash[:alert] = @gist.errors.full_messages.first
+      render 'index'
     end
   end
   
